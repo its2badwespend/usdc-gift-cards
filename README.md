@@ -24,6 +24,12 @@ The application uses a Node.js/Express backend with a vanilla JavaScript fronten
 - **Smart Wallet Creation**: Coinbase Wallet SDK
 - **Payment Processing**: Coinbase Onramp
 
+### Purchase Flow
+![Purchase Flow Architecture](public/images/architecture-purchase.jpg)
+
+### Redemption Flow
+![Redemption Flow Architecture](public/images/architecture-redemption.jpg)
+
 ## Prerequisites
 
 - Node.js v16+
@@ -97,3 +103,11 @@ npm start
 
 MIT License
 
+### Note on Code Quality
+Everything single line of code in this project was generated through Cursor. While fully functional, you may notice:
+> - Extensive inline comments reflecting the iterative development process
+>- Some code organization patterns that could be more elegant
+> - Redundant documentation in places
+> - Verbose error handling from careful iteration
+> 
+> Feel free to refactor and streamline the code while maintaining the core functionality!
