@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Card Sent Successfully | USDC Gift Cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1652f0;
+            --primary-dark: #0039cb;
+            --success: #10b981;
+            --text-primary: #1c1c1e;
+            --text-secondary: #6b7280;
+            --background: #ffffff;
+            --background-alt: #f9fafb;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--background-alt);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .success-card {
+            background: var(--background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .success-message {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 480px) {
+            .success-card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* Update and add these CSS rules in your success.html */
+
+        /* Base responsive adjustments */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+        }
+
+        /* Mobile-first media queries */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 20px 16px;
+            }
+
+            .logo {
+                height: 60px;
+            }
+
+            .logo-container {
+                margin-bottom: 20px;
+            }
+
+            .success-card {
+                padding: 24px 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+
+            .success-icon {
+                width: 56px;
+                height: 56px;
+                margin-bottom: 20px;
+            }
+
+            .success-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .success-message {
+                font-size: 14px;
+                margin-bottom: 24px;
+                padding: 0 8px;
+            }
+
+            .button {
+                padding: 12px 20px;
+                font-size: 15px;
+                border-radius: 8px;
+            }
+        }
+
+        /* Very small devices */
+        @media (max-width: 360px) {
+            .main-content {
+                padding: 16px 12px;
+            }
+
+            .success-card {
+                padding: 20px 16px;
+            }
+
+            .success-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .success-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .success-message {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+
+            .button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+
+        /* Improve touch targets */
+        @media (hover: none) {
+            .button {
+                min-height: 48px;
+                cursor: default;
+                -webkit-tap-highlight-color: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Add smooth transitions */
+        .button {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Add active states for touch devices */
+        .button:active {
+            transform: scale(0.98);
+            background: var(--primary-dark);
+        }
+
+        /* Add animation for success icon */
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            animation: checkmark 0.5s ease-in-out forwards;
+        }
+
+        /* Add subtle hover effect for success card */
+        .success-card {
+            transition: transform 0.2s ease;
+        }
+
+        .success-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Improve vertical spacing on taller screens */
+        @media (min-height: 700px) {
+            .main-content {
+                justify-content: center;
+            }
+        }
+
+        /* Add focus styles for accessibility */
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--background-alt), 0 0 0 6px var(--primary);
+        }
+
+        /* Add loading state for button if needed */
+        .button.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .button.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-container a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .logo-container a:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <div class="logo-container">
+                <a href="/">
+                    <img src="/images/logo.png" alt="CryptoGift Logo" class="logo">
+                </a>
+            </div>
+            
+            <div class="success-card">
+                <div class="success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+
+                <h1>Gift Card Sent Successfully!</h1>
+                <p class="success-message">Your gift card has been sent to the recipient's email address.</p>
+
+                <a href="/" class="button">Send Another Gift</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

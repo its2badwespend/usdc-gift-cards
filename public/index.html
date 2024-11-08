@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDC Gift Cards | Send Crypto Gifts Instantly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1652f0;
+            --primary-dark: #0039cb;
+            --primary-light: #e8f0fe;
+            --secondary: #05b169;
+            --text-primary: #1c1c1e;
+            --text-secondary: #6b7280;
+            --background: #ffffff;
+            --background-alt: #f9fafb;
+            --error: #ef4444;
+            --success: #10b981;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--background-alt);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px 12px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            margin-bottom: 12px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        input.error {
+            border-color: var(--error);
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .amount-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .amount-label label {
+            margin-bottom: -4px; /* Move the label even closer to the input */
+        }
+
+        .network-dropdown {
+            margin-left: 16px; /* Ensures the dropdown remains aligned with the label */
+            display: flex;
+            align-items: center;
+            background-color: #f0f0f0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 4px 8px;
+            font-size: 14px;
+            color: #999;
+            cursor: not-allowed;
+            width: auto;
+            position: relative;
+            top: -6px; /* Move the dropdown slightly higher */
+        }
+
+        .network-dropdown img {
+            height: 18px;
+            margin-left: 4px;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            width: max-content;
+            max-width: 200px;
+        }
+
+        .network-dropdown:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: var(--background);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .card-selection {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .selected-card {
+            background: var(--background);
+            border-radius: var(--radius);
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 16/10;
+            width: 90%; /* Adjusted width */
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: content-box; /* Ensures padding doesn't affect ratio */
+        }
+
+        .selected-card img {
+            width: 100%; /* Fill the container completely */
+            height: 100%;
+            border-radius: calc(var(--radius) - 4px);
+            display: block;
+            object-fit: cover; /* Changed to cover to maintain ratio */
+        }
+
+        .card-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .card-thumbnail {
+            aspect-ratio: 16/10;
+            border-radius: calc(var(--radius) - 4px);
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .card-thumbnail.selected {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .info {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 12px 0;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+            position: relative;
+            color: transparent !important; /* Hide the button text */
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            margin: -12px 0 0 -12px;
+            border: 2px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+        }
+
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px 12px;
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 20px 16px 12px;
+            }
+
+            .logo {
+                height: 60px;
+            }
+
+            .card {
+                padding: 20px;
+                margin-bottom: 12px;
+                border-radius: 8px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 6px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            label {
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+
+            input {
+                padding: 10px 14px;
+                font-size: 15px;
+                border-radius: 8px;
+            }
+
+            .card-selection {
+                margin-bottom: 24px;
+            }
+
+            .selected-card {
+                padding: 10.8px; /* Reduced by 10% from 12px */
+                border-radius: 8px;
+            }
+
+            .selected-card img {
+                width: 90%; /* Reduced by 10% */
+            }
+
+            .card-thumbnails {
+                gap: 8px;
+            }
+
+            .card-thumbnail {
+                border-radius: 6px;
+            }
+
+            button {
+                padding: 12px 20px;
+                font-size: 15px;
+                border-radius: 8px;
+            }
+
+            .info {
+                font-size: 13px;
+                margin-top: 12px;
+            }
+
+            footer {
+                font-size: 13px;
+                padding: 10px 0;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .main-content {
+                padding: 16px 12px 10px;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+
+            input {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .card-thumbnails {
+                gap: 6px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .main-content {
+                padding-top: 16px;
+            }
+
+            .logo-container {
+                margin-bottom: 16px;
+            }
+        }
+
+        @media (hover: none) {
+            button, 
+            .card-thumbnail,
+            input {
+                cursor: default;
+            }
+
+            button {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .card-thumbnail {
+                min-height: 44px;
+            }
+        }
+
+        .card-thumbnail,
+        button,
+        input {
+            transition: all 0.2s ease-in-out;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background: var(--primary-dark);
+        }
+
+        .card-thumbnail:active {
+            transform: scale(0.95);
+        }
+
+        #transition-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333333;
+            padding: 20px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            text-align: center;
+            z-index: 1000;
+            opacity: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #transition-message.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .logo-container a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .logo-container a:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div id="transition-message">Redirecting to secure checkout...</div>
+    <div id="onramp-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);"></div>
+    <div class="main-content">
+        <div class="container">
+            <div class="logo-container">
+                <a href="/">
+                    <img src="/images/logo.png" alt="CryptoGift Logo" class="logo">
+                </a>
+            </div>
+            
+            <div class="card">
+                <h1>Send a USDC Gift Card</h1>
+                <p class="subtitle">Instant USDC gift cards delivered by email</p>
+
+                <div class="form-group">
+                    <div class="amount-label">
+                        <label for="amountField">Gift Amount (USD)</label>
+                        <div class="network-dropdown">
+                            Network:
+                            <img src="/images/Base_Wordmark_Blue.svg" alt="Base Network Logo">
+                            <div class="tooltip">Currently, only the Base network is supported.</div>
+                        </div>
+                    </div>
+                    <input 
+                        type="number" 
+                        id="amountField" 
+                        min="1" 
+                        max="25" 
+                        step="0.01" 
+                        placeholder="Enter amount (1-25 USD)"
+                        required
+                    >
+                    <div id="amountError" class="error-message">Please enter an amount between 1 and 25 USD</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipientEmail">Recipient's Email</label>
+                    <input 
+                        type="email" 
+                        id="recipientEmail" 
+                        placeholder="Enter recipient's email address"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Select Card Design</label>
+                    <div class="card-selection">
+                        <div class="selected-card">
+                            <img src="/images/card-design1.png" alt="Selected Card Design" id="selectedCardImage">
+                        </div>
+                        <div class="card-thumbnails">
+                            <div class="card-thumbnail selected" data-design="design1">
+                                <img src="/images/card-design1.png" alt="Card Design 1">
+                            </div>
+                            <div class="card-thumbnail" data-design="design2">
+                                <img src="/images/card-design2.png" alt="Card Design 2">
+                            </div>
+                            <div class="card-thumbnail" data-design="design3">
+                                <img src="/images/card-design3.png" alt="Card Design 3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="openOnrampBtn">Continue to Payment</button>
+                
+                <p class="info">
+                    Gift cards are delivered instantly via email
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            Powered by <a href="https://portal.cdp.coinbase.com/" target="_blank">Coinbase Developer Platform</a>
+        </footer>
+    </div>
+
+    <div id="popup-warning" style="display: none; text-align: center; color: #ef4444; margin-top: 8px; font-size: 14px;">
+        Please allow popups for this site to complete your purchase
+    </div>
+
+    <script src="/onramp-bundle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Card selection logic
+            const selectedCardImage = document.getElementById('selectedCardImage');
+            const cardThumbnails = document.querySelectorAll('.card-thumbnail');
+            let selectedDesign = 'design1';
+
+            cardThumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    cardThumbnails.forEach(t => t.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedDesign = this.dataset.design;
+                    selectedCardImage.src = this.querySelector('img').src;
+                });
+            });
+
+            // Form validation
+            const amountField = document.getElementById('amountField');
+            const amountError = document.getElementById('amountError');
+            const recipientEmailField = document.getElementById('recipientEmail');
+            const openOnrampBtn = document.getElementById('openOnrampBtn');
+            const transitionMessage = document.getElementById('transition-message');
+
+            // Amount validation
+            function validateAmount() {
+                const amount = parseFloat(amountField.value);
+                const isValid = !isNaN(amount) && amount >= 1 && amount <= 25;
+                
+                if (!isValid) {
+                    amountField.classList.add('error');
+                    amountError.style.display = 'block';
+                } else {
+                    amountField.classList.remove('error');
+                    amountError.style.display = 'none';
+                }
+                
+                return isValid;
+            }
+
+            // Real-time validation
+            amountField.addEventListener('input', validateAmount);
+
+            // Handle form submission
+            openOnrampBtn.addEventListener('mouseup', async function(e) {
+                e.preventDefault();
+                
+                // Prevent multiple clicks
+                if (this.disabled) return;
+                
+                const amount = parseFloat(amountField.value);
+                const recipientEmail = recipientEmailField.value;
+
+                if (!validateAmount() || !recipientEmail) {
+                    return;
+                }
+
+                // Disable the button immediately
+                this.disabled = true;
+                this.classList.add('loading');
+
+                try {
+                    // Show transition message
+                    transitionMessage.classList.add('show');
+                    
+                    const instance = await initOnramp(amount, recipientEmail, selectedDesign);
+                    
+                    requestAnimationFrame(() => {
+                        instance.open();
+                        
+                        // Hide transition message after a short delay
+                        setTimeout(() => {
+                            transitionMessage.classList.remove('show');
+                        }, 1500);
+                    });
+                } catch (error) {
+                    console.error('Failed to initialize onramp:', error);
+                    // Re-enable the button and remove loading state on error
+                    this.disabled = false;
+                    this.classList.remove('loading');
+                    transitionMessage.classList.remove('show');
+                    alert('Unable to open payment window. Please try again.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
