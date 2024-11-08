@@ -2,6 +2,8 @@
 
 A web application that allows users to send USDC gift cards instantly via email. Recipients can easily redeem their USDC gifts through a secure, gasless experience powered by Coinbase Developer Platform.
 
+![USDC Gift Cards Homepage](public/images/homepage_screenshot.png)
+
 ## Features
 
 - 💳 Create instant USDC gift cards
