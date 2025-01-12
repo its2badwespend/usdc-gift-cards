@@ -1,4 +1,4 @@
-# USDC Gift Card Purchase Website
+# USDC Gift Card Purchase Websitenode_modules/@coinbase/wallet-sdk
 
 A web application that allows users to send USDC gift cards instantly via email. Recipients can easily redeem their USDC gifts through a secure, gasless experience powered by Coinbase Developer Platform.
 
